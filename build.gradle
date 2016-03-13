@@ -1,0 +1,44 @@
+group 'uk.gov.dvsa.notify.poc'
+version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.2'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'gradle-one-jar'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-csv:1.2'
+    compile 'org.bitbucket.b_c:jose4j:0.4.4'
+    compile 'com.google.inject:guice:4.0'
+    compile 'commons-cli:commons-cli:1.3.1'
+    compile 'org.yaml:snakeyaml:1.17'
+    compile 'ch.qos.logback:logback-classic:1.1.6'
+    compile 'org.apache.httpcomponents:fluent-hc:4.5.2'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+task oneJar(type: OneJar) {
+    mainClass = 'uk.gov.dvsa.notify.poc.app.Main'
+    useStable = false
+}
